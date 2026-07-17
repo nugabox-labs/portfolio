@@ -7,7 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-07-17
+
+### Added
+
+- `Akshayp2002/next-portfolio-new`(Next.js 16.1.6, App Router) 템플릿을 이식.
+- `AGENTS.md`에 버전 관리/커밋/Docker Compose/Notion 운영 규칙 정리.
+
+### Removed
+
+- `@vercel/analytics` — Vercel 전용 기능이라 self-host 환경에서 동작하지 않아 제거.
+- Contentful 기반 블로그 섹션(`/blog`, `/api/blogs`) — Notion 단일 DB 콘텐츠 모델과 무관한 별도 외부 CMS라 제거.
+- Supabase 기반 리뷰/추천사 섹션(`/testimonies`, `/api/reviews`) — 마찬가지로 Notion 계획 밖의 별도 백엔드라 제거.
+- Tools 섹션 — 개인 이력이 아닌 범용 기술/도구 소개 정적 목록이라 제거.
+- 원저자(Akshay) 개인정보/이력 — 이름·소개문구, Instagram/LinkedIn/GitHub 링크, 지도 좌표(Kerala→Gwangju로 교체), `careers.ts`/`projects.ts`의 실제 경력·프로젝트 데이터(빈 배열로 초기화, 콘텐츠는 2단계에서 Notion으로 채움).
+
 ### Content
+
+- Craft(craft.me) 포트폴리오 내보내기(`./craft`)를 분석해 Notion DB("포트폴리오", `39faac4e32a580aa9f7fd2fd2a197b85`)로 1차 이관.
 
 - Craft(craft.me) 포트폴리오 내보내기(`./craft`)를 분석해 Notion DB("포트폴리오", `39faac4e32a580aa9f7fd2fd2a197b85`)로 1차 이관.
   - 데이터소스 스키마 확장: `공개`(checkbox), `설명`(rich text), `기간`(rich text), `링크`(url), `이미지`(files) 속성 추가.

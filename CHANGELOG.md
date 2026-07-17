@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-17
+
+### Added
+
+- `lib/notion.ts`: `@notionhq/client`(v5) 기반 Notion 데이터 조회 레이어.
+  - `databases.retrieve`로 데이터소스 ID를 1회 조회해 캐시한 뒤 `dataSources.query`로 페이지를 조회(Notion API `2025-09-03`, `databases.query`는 더 이상 사용하지 않음).
+  - `공개` 체크박스가 `true`인 페이지만 필터링해서 조회.
+  - `구분`(Work/Education/Prize/Project)별로 그룹핑하는 `getGroupedPortfolio()` 헬퍼 제공.
+  - `카테고리`(다중 선택) 값을 태그 배열로 그대로 노출.
+  - Notion SDK 호출은 `fetch`가 아니라 Next.js의 fetch 캐시 대상이 아니므로 `unstable_cache`로 감싸 `NOTION_REVALIDATE_SECONDS`(기본 300초) 주기로 재검증.
+- `.env.example`에 `NOTION_TOKEN`/`NOTION_DATABASE_ID`/`NOTION_REVALIDATE_SECONDS` 정리.
+- `tsconfig.json`에 `@/lib/*` → 루트 `lib/*` 경로 별칭 추가.
+
 ## [0.1.0] - 2026-07-17
 
 ### Added
@@ -23,8 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 원저자(Akshay) 개인정보/이력 — 이름·소개문구, Instagram/LinkedIn/GitHub 링크, 지도 좌표(Kerala→Gwangju로 교체), `careers.ts`/`projects.ts`의 실제 경력·프로젝트 데이터(빈 배열로 초기화, 콘텐츠는 2단계에서 Notion으로 채움).
 
 ### Content
-
-- Craft(craft.me) 포트폴리오 내보내기(`./craft`)를 분석해 Notion DB("포트폴리오", `39faac4e32a580aa9f7fd2fd2a197b85`)로 1차 이관.
 
 - Craft(craft.me) 포트폴리오 내보내기(`./craft`)를 분석해 Notion DB("포트폴리오", `39faac4e32a580aa9f7fd2fd2a197b85`)로 1차 이관.
   - 데이터소스 스키마 확장: `공개`(checkbox), `설명`(rich text), `기간`(rich text), `링크`(url), `이미지`(files) 속성 추가.

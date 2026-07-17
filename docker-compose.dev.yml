@@ -1,0 +1,23 @@
+name: portfolio-dev
+
+services:
+  portfolio-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: portfolio:dev
+    restart: unless-stopped
+    ports:
+      - "${DEV_PORT:-1338}:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+    volumes:
+      - .:/app
+      - portfolio_dev_node_modules:/app/node_modules
+      - portfolio_dev_next:/app/.next
+
+volumes:
+  portfolio_dev_node_modules:
+  portfolio_dev_next:

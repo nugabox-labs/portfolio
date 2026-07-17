@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-07-17
+
+### Added
+
+- `Dockerfile.dev`: 소스는 바인드 마운트로 받고 이미지에는 의존성만 설치. `next dev -H 0.0.0.0 -p 3000`으로 컨테이너 밖에서 접근 가능하게 기동.
+- `docker-compose.dev.yml`: 전체 소스를 바인드 마운트하고 `node_modules`/`.next`는 named volume으로 분리해 호스트와 컨테이너 간 네이티브 바이너리 충돌을 방지. 호스트 포트는 `${DEV_PORT:-1338}`로 prod(1337)와 겹치지 않게 분리.
+- `docker-compose.yml`/`docker-compose.dev.yml`에 각각 `name: portfolio-prod` / `name: portfolio-dev`를 명시해 프로젝트 네임스페이스(네트워크/컨테이너명)를 완전히 분리 — 같은 디렉터리라 기본값으로는 두 compose 파일이 동일한 프로젝트명을 공유해 orphan 컨테이너 경고가 발생했던 걸 수정.
+- 실제로 `docker compose -f docker-compose.dev.yml up -d --build`로 기동해 핫리로드 환경에서 `/home`, `/about`, `/projects`가 정상 응답하는 것과 prod(1337)·dev(1338)가 동시에 떠 있어도 서로 간섭하지 않는 것을 확인.
+
 ## [0.3.0] - 2026-07-17
 
 ### Added

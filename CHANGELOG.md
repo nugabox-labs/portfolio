@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-07-17
+
+### Added
+
+- `next.config.ts`에 `output: 'standalone'` 설정(Next.js 공식 Docker 배포 가이드 방식).
+- `Dockerfile`: deps → build → runner 3단계 멀티스테이지. `.next/standalone` + `.next/static` + `public`만 최종 이미지에 포함, non-root(`node`) 유저로 실행.
+- `docker-compose.yml`: prod 서비스, 호스트 포트는 `${PORT:-1337}`, 시크릿은 `.env`를 통해 런타임에만 주입(이미지 레이어에 굽지 않음).
+- `.dockerignore` 추가 — 누락되어 있던 걸 뒤늦게 발견, 빌드 컨텍스트가 `node_modules`/`.git`/`craft`/`.env` 포함 754MB였던 걸 5KB로 줄임.
+- `docker compose -f docker-compose.yml up -d --build` → `next build` → 컨테이너 기동 → `/home`, `/about` 200 응답까지 실측 검증. `/about`·`/projects`가 `force-dynamic`이라 빌드 타임에 Notion 토큰이 필요 없는 것도 확인.
+
 ## [0.2.0] - 2026-07-17
 
 ### Added

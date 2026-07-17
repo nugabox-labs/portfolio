@@ -1,0 +1,15 @@
+name: portfolio-prod
+
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: portfolio:prod
+    restart: unless-stopped
+    ports:
+      - "${PORT:-1337}:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production

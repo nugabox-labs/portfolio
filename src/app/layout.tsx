@@ -8,6 +8,7 @@ import ThemeProvider from "./theme-provider";
 import PageTransition from "./page-transition";
 import DelayedFooter from "@/delayed-footer";
 import { Inter, Young_Serif } from "next/font/google";
+import StyledComponentsRegistry from "./registry";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -37,11 +38,13 @@ export default function RootLayout({
         <link rel="stylesheet" href="/css/fontAwesome.min.css" />
       </head>
       <body suppressHydrationWarning className={`${inter.variable} ${youngSerif.variable} antialiased px-6 hide-scrollbar`}>
-        <ThemeProvider>
-          <HomeNav />
-          <PageTransition>{children}</PageTransition>
-          <DelayedFooter />
-        </ThemeProvider>
+        <StyledComponentsRegistry>
+          <ThemeProvider>
+            <HomeNav />
+            <PageTransition>{children}</PageTransition>
+            <DelayedFooter />
+          </ThemeProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

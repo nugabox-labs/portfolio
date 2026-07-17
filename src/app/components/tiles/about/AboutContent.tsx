@@ -2,10 +2,11 @@
 
 import { FiArrowUpRight, FiExternalLink, FiX, FiCode } from "react-icons/fi";
 import { useEffect, useMemo, useState } from "react";
-import { createPortal } from "react-dom";
 import Image from "next/image";
 import styled, { keyframes } from "styled-components";
-import type { PortfolioItem, PortfolioCategory } from "@/lib/notion";
+import type { PortfolioItem, PortfolioCategory, PortfolioBlock } from "@/lib/notion";
+import NotionBlocks from "@/components/NotionBlocks";
+import ModalPortal from "@/components/ModalPortal";
 
 const spinGlow = keyframes`
   from { transform: translate(-50%, -50%) rotate(0deg); }
@@ -94,18 +95,6 @@ function SectionCard({
   );
 }
 
-function ModalPortal({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
-  return createPortal(children, document.body);
-}
-
 function ItemCard({
   item,
   onClick,
@@ -158,8 +147,33 @@ export default function AboutContent({
 }) {
   const [isTimelineOpen, setIsTimelineOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
-  const [imageViewer, setImageViewer] = useState<{ urls: string[]; index: number } | null>(null);
+  const [imageViewer, setImageViewer] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<PortfolioCategory>("Work");
+  const [contentBlocks, setContentBlocks] = useState<PortfolioBlock[] | null>(null);
+  const [contentLoading, setContentLoading] = useState(false);
+
+  useEffect(() => {
+    if (!selectedItem) {
+      setContentBlocks(null);
+      return;
+    }
+    let cancelled = false;
+    setContentLoading(true);
+    fetch(`/api/notion/${selectedItem.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (!cancelled) setContentBlocks(data.blocks ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setContentBlocks([]);
+      })
+      .finally(() => {
+        if (!cancelled) setContentLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedItem]);
 
   const previewWork = useMemo(() => work.slice(0, 2), [work]);
   const previewEducation = useMemo(() => education.slice(0, 2), [education]);
@@ -314,14 +328,6 @@ export default function AboutContent({
               </div>
 
               <div className="max-h-[78vh] space-y-4 overflow-y-auto px-4 py-4 sm:px-5 sm:py-5 md:px-6">
-                {selectedItem.description && (
-                  <section className="rounded-3xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-[#111821]">
-                    <p className="text-xs leading-6 text-gray-700 dark:text-gray-200 sm:text-sm sm:leading-7">
-                      {selectedItem.description}
-                    </p>
-                  </section>
-                )}
-
                 {selectedItem.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {selectedItem.tags.map((tag) => (
@@ -330,20 +336,19 @@ export default function AboutContent({
                   </div>
                 )}
 
-                {selectedItem.imageUrls.length > 0 && (
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                    {selectedItem.imageUrls.map((url, index) => (
-                      <button
-                        key={url}
-                        type="button"
-                        className="relative h-28 w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 dark:border-gray-600 dark:bg-[#0d1117]"
-                        onClick={() => setImageViewer({ urls: selectedItem.imageUrls, index })}
-                      >
-                        <Image src={url} alt={selectedItem.title} fill className="object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <section className="rounded-3xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-[#111821]">
+                  {contentLoading ? (
+                    <p className="text-xs text-gray-400 dark:text-gray-500">불러오는 중...</p>
+                  ) : contentBlocks && contentBlocks.length > 0 ? (
+                    <NotionBlocks blocks={contentBlocks} onImageClick={setImageViewer} />
+                  ) : selectedItem.description ? (
+                    <p className="text-xs leading-6 text-gray-700 dark:text-gray-200 sm:text-sm sm:leading-7">
+                      {selectedItem.description}
+                    </p>
+                  ) : (
+                    <p className="text-xs text-gray-400 dark:text-gray-500">등록된 내용이 없습니다.</p>
+                  )}
+                </section>
 
                 {selectedItem.link && (
                   <a
@@ -377,7 +382,8 @@ export default function AboutContent({
                 </button>
               </div>
               <div className="relative h-[56vh] w-full overflow-hidden rounded-2xl border border-gray-200 bg-[#f8fafc] dark:border-gray-700 dark:bg-[#111821]">
-                <Image src={imageViewer.urls[imageViewer.index]} alt="" fill className="object-contain" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={imageViewer} alt="" className="h-full w-full object-contain" />
               </div>
             </div>
           </div>

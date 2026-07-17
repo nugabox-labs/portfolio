@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-07-17
+
+### Added
+
+- Notion 페이지 본문(blocks)에 craft 원문의 이미지/설명 텍스트를 실제로 채워 넣었다. `@notionhq/client`의 File Upload API(`fileUploads.create`/`send`)로 로컬 craft 이미지를 직접 업로드(MCP `notion-create-attachment`는 공개 URL만 지원해 로컬 파일에 못 씀). Project 28건에는 craft 원문과 동일한 이미지를, 전 48건에는 기간·설명·링크를 합친 본문 문단을 추가. 마이그레이션은 일회성 스크립트로 실행 후 삭제(재실행 가능한 인프라로 남기지 않음).
+- 각 프로젝트의 첫 이미지를 "이미지" 속성에도 동일하게 채워 목록/카드 썸네일로 재사용(별도 "썸네일" 속성 없이 기존 속성 재활용).
+- `lib/notion.ts`에 `getPortfolioItemContent(pageId)` 추가 — 페이지 본문 블록(paragraph/heading/list/quote/divider/image)을 렌더링하기 쉬운 구조로 변환. NUGAWIKI의 `scripts/notion-sync.mjs`(Notion→콘텐츠 변환 스크립트)의 재귀적 block 처리 방식을 참고해 작성.
+- Notion 파일 URL은 1시간 만료(공식 문서 확인)라 5분 캐시 주기보다 훨씬 여유 있어 별도 이미지 미러링 없이 매 재검증마다 새 URL을 받는 방식으로 설계.
+- `/api/notion/[id]` 라우트 추가 — 클릭 시 온디맨드로 페이지 본문을 가져온다.
+- `NotionBlocks.tsx` 공용 렌더러, `ModalPortal.tsx` 공용 컴포넌트로 분리.
+- About/Projects의 상세 모달을 확장해 실제 Notion 페이지 본문(이미지+텍스트)을 보여주도록 연결. Projects 카드도 클릭하면 상세 모달이 열리도록 추가.
+
+### Fixed
+
+- `ProjectTile`이 Notion에서 받은 원격 이미지 URL을 `next/image`로 그리려 했는데, Notion 서명 URL 도메인이 `next.config`에 허용돼 있지 않아 실제 이미지가 들어오면 깨지는 문제를 발견 — 일반 `<img>`로 전환.
+- **styled-components SSR 하이드레이션 불일치**(이전 버전에서 "범위 밖"으로 기록만 해둔 문제)가 실제로는 About 페이지 카드의 클릭 이벤트를 막고 있었던 것을 발견 — `next.config.ts`에 `compiler.styledComponents: true` 설정과 공식 `StyledComponentsRegistry` 패턴(`useServerInsertedHTML`)을 추가해 해결.
+
+브라우저로 About/Projects 양쪽에서 카드 클릭 → 실제 Notion 이미지/텍스트가 담긴 상세 모달이 열리는 것까지 확인했다.
+
 ## [0.6.2] - 2026-07-17
 
 ### Fixed

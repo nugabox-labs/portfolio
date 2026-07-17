@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-17
+
+### Added
+
+- `compose.sh`: `up`/`down`/`--dev up`/`--dev down` 4가지 시나리오 지원. 1337~1339 범위에서 비어있는 포트를 자동으로 찾아 `PORT`/`DEV_PORT`로 넘겨준다. `.env`가 없으면 경고만 출력(빌드는 막지 않음, 컨테이너 자체가 필요한 값이 비면 런타임에 알려줌).
+- 4가지 시나리오 중 `--dev up`, `up`, `down`(prod)을 실제로 실행해 검증 완료 — prod/dev 동시 기동 후 `down`으로 prod만 정리되고 dev는 영향 없는 것까지 확인. `--dev down`은 대칭적인 동작이라 별도로 실행하지는 않음(사용자가 보고 있는 dev 세션을 중단시키지 않기 위해).
+
 ## [0.4.0] - 2026-07-17
 
 ### Added

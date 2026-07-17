@@ -194,7 +194,7 @@ export default function AboutContent({
               <div className="flex items-center gap-6 mb-3">
                 <div className="relative w-24 h-24 shrink-0">
                   <Image
-                    src="/mepopper.png"
+                    src="/images/mepopper.png"
                     alt="Profile"
                     width={100}
                     height={100}

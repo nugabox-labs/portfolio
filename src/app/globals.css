@@ -2,6 +2,14 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/PretendardVariable.woff2') format('woff2-variations');
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+}
+
 .junge-regular {
   font-family: 'Junge', serif;
 }
@@ -15,31 +23,13 @@
   --foreground: #090C10;
 }
 
-* {
-  cursor: url("https://res.cloudinary.com/daily-now/image/upload/s--Q3mKadUU--/f_auto/v1730101530/public/Bd%20cursor"), auto;
-}
-
-.cursor-grab,
-.cursor-grab * {
-  cursor: -webkit-grab !important;
-  cursor: grab !important;
-}
-
-.cursor-grabbing,
-.cursor-grabbing *,
-.active\:cursor-grabbing:active,
-.active\:cursor-grabbing:active * {
-  cursor: url("https://img.icons8.com/fluency/48/gripping-hand.png") 12 6, -webkit-grabbing !important;
-  cursor: url("https://img.icons8.com/fluency/48/gripping-hand.png") 12 6, grabbing !important;
-}
-
 /* Force light mode: Remove dark mode override */
 
 body,
 .light body {
   background: #F7F2F2;
   color: #171717;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Pretendard', var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

@@ -58,7 +58,7 @@ export default function IntroTile() {
             <div className="flex items-center gap-3 mb-2">
                 {/* Placeholder for 3D Avatar Image */}
                 <div className="relative w-24 h-24">
-                    <Image src="/memoji.png" alt="Avatar" width={60} height={100} className="rounded-full" />
+                    <Image src="/images/memoji.png" alt="Avatar" width={60} height={100} className="rounded-full" />
                 </div>
                 <div className="-ml-2 -mt-7 min-h-[60px]" aria-live="polite" aria-label="Greeting chat">
                     <div
@@ -85,7 +85,7 @@ export default function IntroTile() {
                 I'm{" "}
                 <span className="relative inline-block whitespace-nowrap z-10 font-bold text-gray-800">
                     <span className="relative z-20 font-decorative text-[20px]">Nuga</span>
-                    <img src="/line-1.svg" alt="underline" className="absolute left-0 w-full top-[-16%] -z-10 pointer-events-none" />
+                    <img src="/images/line-1.svg" alt="underline" className="absolute left-0 w-full top-[-16%] -z-10 pointer-events-none" />
                 </span>
                 , a full-stack developer based in Korea...
             </h1>

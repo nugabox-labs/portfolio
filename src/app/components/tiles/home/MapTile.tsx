@@ -13,7 +13,7 @@ export default function MapTile() {
             <div className="absolute inset-0 z-20 pointer-events-none flex items-center justify-center">
                 <div className="pointer-events-auto relative w-[120px] h-[120px] rounded-full bg-cyan-400/50 border border-cyan-300/70 shadow-[0_10px_30px_rgba(14,165,233,0.35)] flex items-center justify-center transition-transform duration-300 ease-out group-hover:rotate-[-10deg] group-hover:scale-105">
                     <Image
-                        src="/head-hand.png"
+                        src="/images/head-hand.png"
                         alt="Profile"
                         width={90}
                         height={90}

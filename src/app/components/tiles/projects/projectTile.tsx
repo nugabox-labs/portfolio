@@ -41,7 +41,7 @@ export default function ProjectTile({ project }: { project: PortfolioItem }) {
                     {project.link && (
                         <Link href={project.link} target="_blank" rel="noopener noreferrer">
                             <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors hover:ring-4 ring-gray-200 dark:ring-gray-400 hover:transition duration-700 ease-in-out">
-                                <Image src="/arrow.svg" alt="View Project" width={20} height={20} />
+                                <Image src="/images/arrow.svg" alt="View Project" width={20} height={20} />
                             </div>
                         </Link>
                     )}

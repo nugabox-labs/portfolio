@@ -19,7 +19,7 @@ export default function TechStackTile() {
         <div className="w-full h-full relative overflow-hidden rounded-4xl bg-white dark:bg-[#0d1117] dark:ring-2 dark:ring-gray-700">
             <div
                 className="absolute inset-0 bg-white bg-repeat opacity-80 dark:bg-[#0d1117] dark:bg-none dark:opacity-100"
-                style={{ backgroundImage: "url('/Topographic.svg')", backgroundSize: "260px 260px" }}
+                style={{ backgroundImage: "url('/images/Topographic.svg')", backgroundSize: "260px 260px" }}
             />
 
             {ICON_CARDS.map((item) => (

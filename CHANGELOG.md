@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-07-17
+
+### Fixed
+
+- `globals.css`에 있던 전역 커스텀 마우스 포인터 이미지(`* { cursor: url(...) }`, Cloudinary 아이콘)와 드래그용 커스텀 grab/grabbing 커서 이미지(icons8) 제거 — 기본 OS 커서로 복원. 호버 색상/링/스케일 효과 자체는 그대로 유지(제거 대상 아니었음).
+- `public/images/logo.svg`가 실제로는 원저자(Akshay) 이름을 벡터 경로로 그린 로고였던 걸 발견 — 텍스트를 재교체할 수 없는 path 데이터라 심플한 텍스트 기반 로고로 교체.
+
+### Added
+
+- `public/` 루트에 흩어져 있던 이미지(로고/아바타/아이콘 등)를 `public/images/`로 정리, 코드 내 참조 경로 전부 갱신.
+- `public/css/fontAwesome.min.css` + `public/fonts/`(Pretendard, Font Awesome 5 Pro webfonts)를 정리하고 전역 로드: `globals.css`에 Pretendard `@font-face` 추가해 기본 폰트로 적용, `layout.tsx`에 FontAwesome 스타일시트 `<link>` 추가. FontAwesome CSS의 `../webfonts/` 경로 참조를 실제 폰트 위치인 `../fonts/`로 일괄 수정(30건).
+
+컨테이너 내 실제 요청으로 `/images/*`, `/fonts/*`, `/css/*` 200 응답과 dev/prod 빌드 모두 검증.
+
 ## [0.6.1] - 2026-07-17
 
 ### Fixed

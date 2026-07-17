@@ -9,7 +9,7 @@ export default function BusinessPreviewTile() {
 
             <div className="absolute top-[18%] left-[17%] w-[68%] aspect-[16/9] -rotate-[31deg] rounded-[2rem] bg-[#f8f8f8] shadow-[0_22px_42px_rgba(15,23,42,0.18)] overflow-hidden">
                 <Image
-                    src="/logo.svg"
+                    src="/images/logo.svg"
                     alt="Business app preview"
                     fill
                     className="object-contain p-10"

@@ -25,7 +25,7 @@ export default function HomeNav() {
             {/* 1. SVG Logo - Top on mobile, Absolute Left on desktop */}
             <div className="flex items-center select-none mb-4 sm:mb-0 sm:absolute sm:left-0 sm:top-1/2 sm:-translate-y-1/2">
                 <Link href="/home" className="hover:opacity-80 transition-all active:scale-95 cursor-pointer">
-                    <Image src="/logo.svg" alt="Logo" width={170} height={100} className="w-[140px] h-auto" />
+                    <Image src="/images/logo.svg" alt="Logo" width={170} height={100} className="w-[140px] h-auto" />
                 </Link>
             </div>
 

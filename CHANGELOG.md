@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-07-17
+
+### Added
+
+- README.md: 아키텍처, Notion 데이터 모델, 로컬 실행법(compose.sh 사용법 포함), 배포 방법, 프로젝트 구조를 문서화.
+
 ## [0.7.0] - 2026-07-17
 
 ### Added

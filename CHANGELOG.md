@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-07-17
+
+### Added
+
+- `about/page.tsx`, `projects/page.tsx`를 서버 컴포넌트로 만들어 `getGroupedPortfolio()`로 Notion 데이터를 조회하고 클라이언트 컴포넌트에 props로 내려준다(둘 다 `force-dynamic`이라 빌드 타임이 아닌 요청 시점에 조회됨).
+- `AboutContent.tsx`: 하드코딩된 `careersData`/`education`과 `/api/reviews`(삭제된 라우트) 호출을 제거하고, Notion `구분`(Work/Education/Prize)별 미리보기 2개 + "전체보기" 타임라인 모달 패턴으로 재구성. 템플릿에 없던 **Prize 섹션을 신규 추가**.
+- `projectTile.tsx`/`ProjectsGrid.tsx`: 하드코딩된 `projectsData` 대신 Notion `PortfolioItem`을 그대로 렌더링. tech 아이콘 대신 `카테고리` 태그 pill로 표시(craft 원문에 기술스택이 명시돼 있지 않아 지어내지 않음), github/view 구분 대신 단일 `링크`로 통일.
+- `public/tech/placeholder.svg`: 이미지가 아직 없는 프로젝트/항목용 대체 이미지.
+
+### Fixed
+
+- `TechStackTile.tsx`가 0단계에서 삭제한 `/tools`로 링크돼 있던 걸(dead link) 발견해 `/about`으로 수정.
+
+### Removed
+
+- `careers.ts`, `components/tiles/projects/projects.ts` — Notion이 대체.
+
+실제 Notion 데이터로 `/about`(가민정보시스템·경남대학교·전국디자인그래픽경진대회 등)과 `/projects`(SiiRU KID·창억떡·NUGABOX 등)가 정상 렌더링되는 것을 dev 컨테이너에서 직접 확인했다.
+
 ## [0.5.0] - 2026-07-17
 
 ### Added

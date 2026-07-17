@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-07-17
+
+### Fixed
+
+- `compose.sh`/`docker-compose.dev.yml`의 dev 기본 포트를 1338 고정에서 1337 우선(충돌 시에만 자동으로 1338/1339)으로 수정 — 원래 스펙 의도("dev도 기본은 1337, 충돌 시에만 조정")와 맞지 않던 걸 바로잡음.
+
 ## [0.6.0] - 2026-07-17
 
 ### Added

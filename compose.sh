@@ -40,7 +40,7 @@ if [[ "$MODE" == "dev" ]]; then
   COMPOSE_FILE="docker-compose.dev.yml"
   SERVICE_LABEL="개발(dev)"
   if [[ "$ACTION" == "up" ]]; then
-    export DEV_PORT="${DEV_PORT:-$(find_free_port 1338)}"
+    export DEV_PORT="${DEV_PORT:-$(find_free_port 1337)}"
   fi
 else
   COMPOSE_FILE="docker-compose.yml"
